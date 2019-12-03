@@ -33,6 +33,10 @@ Description
         Wilcox, D. C. (1998).
         Turbulence modeling for CFD
         (Vol. 2, pp. 103-217). La Canada, CA: DCW industries.
+
+		Kok, J. C. (1999).
+		Resolving the dependence on free-stream values for the k-omega turbulence model
+		National Aerospace Laboratory NLR Report.
     \endverbatim
 
     The default model coefficients are
@@ -42,8 +46,9 @@ Description
             Cmu         0.09;  // Equivalent to betaStar
             alpha       0.52;
             beta        0.072;
-            alphak      0.5;
+            alphak      2/3;
             alphaOmega  0.5;
+			alphaD		0.5;
         }
     \endverbatim
 
