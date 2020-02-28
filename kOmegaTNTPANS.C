@@ -152,7 +152,7 @@ kOmegaTNTPANS<BasicTurbulenceModel>::kOmegaTNTPANS
         (
             "fOmega",
             this->coeffDict_,
-            4
+            4.0
         )
     ),
 
@@ -208,6 +208,8 @@ kOmegaTNTPANS<BasicTurbulenceModel>::kOmegaTNTPANS
     )
 
 {
+	
+	fOmega_ = fEpsilon_/fk_;
     bound(k_, this->kMin_);
     bound(omega_, this->omegaMin_);
 
@@ -218,6 +220,7 @@ kOmegaTNTPANS<BasicTurbulenceModel>::kOmegaTNTPANS
     {
         this->printCoeffs(type);
     }
+	
 }
 
 
@@ -329,6 +332,12 @@ void kOmegaTNTPANS<BasicTurbulenceModel>::correct()
     solve(kUEqn);
     fvOptions.correct(kU_);
     bound(kU_, fk_*this->kMin_);
+
+	this->k_ = kU_/fk_;
+	this->k_.correctBoundaryConditions();
+
+	this->omega_ = omegaU_/fOmega_;
+	this->omega_.correctBoundaryConditions();
 
     correctNut();
 }
